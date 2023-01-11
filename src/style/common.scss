@@ -1,0 +1,51 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  height: 100%;
+  font-family: var(--vxp-font-family-base);
+  font-size: var(--vxp-font-size-base);
+  line-height: var(--vxp-line-height-base);
+  color: var(--vxp-content-color-base);
+  font-synthesis: none;
+  text-rendering: optimizelegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0;
+  background-color: var(--vxp-bg-color-base);
+}
+
+#app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.empty-btn {
+  display: flex;
+  padding: 0;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+}
+
+.vxp-contextmenu {
+  z-index: var(--vxp-z-index-popper);
+
+  & &__item {
+    min-width: 150px;
+  }
+}

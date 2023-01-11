@@ -1,0 +1,8 @@
+{
+  "files.associations": {
+    ".lintstagedrc": "json",
+    ".env.development": "properties",
+    ".env.production": "properties",
+    ".env.test": "test"
+  }
+}
