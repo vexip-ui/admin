@@ -67,18 +67,19 @@ function compareMenuOrder(prev: MenuConfig, next: MenuConfig) {
 function parseMenuFromRoute(route: RouteRecordRaw, parentLabel = ''): MenuConfig {
   const { meta = {}, path, children = [] } = route
 
-  if (!meta.menu) return null!
+  if (meta.menu === false) return null!
 
+  const menu = meta.menu || {}
   const label = parentLabel ? `${parentLabel}/${path}` : path
-  const name = (meta.menu.single ? children[0]?.name : route.name) || ''
+  const name = (menu.single ? children[0]?.name : route.name) || ''
   const icon = meta.menu?.icon
 
   return {
-    ...meta.menu,
+    ...menu,
     label,
     name: meta.title ? callIfFunc(meta.title) : (name as string),
     icon: typeof icon === 'string' ? createIconRenderer(icon) : icon,
-    children: meta.menu.single
+    children: menu.single
       ? undefined
       : children
         .map(child => parseMenuFromRoute(child, label))

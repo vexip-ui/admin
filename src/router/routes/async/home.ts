@@ -12,7 +12,8 @@ export const ProjectNoteRoute: RouteRecordRaw = {
       fixed: true,
       icon: IHouse,
       iconOnly: true
-    }
+    },
+    menu: false
   },
   children: [
     {

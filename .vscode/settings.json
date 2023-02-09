@@ -4,5 +4,34 @@
     ".env.development": "properties",
     ".env.production": "properties",
     ".env.test": "test"
-  }
+  },
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "npm.packageManager": "pnpm",
+  "[vue]": {
+    "editor.defaultFormatter": "Vue.volar"
+  },
+  "stylelint.enable": true,
+  "stylelint.validate": [
+    "css",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "less",
+    "markdown",
+    "postcss",
+    "sass",
+    "scss",
+    "source.css.styled",
+    "source.markdown.math",
+    "styled-css",
+    "sugarss",
+    "svelte",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "vue-html",
+    "vue-postcss",
+    "xml",
+    "xsl"
+  ]
 }

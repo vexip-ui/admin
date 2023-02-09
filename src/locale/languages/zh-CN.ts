@@ -56,14 +56,24 @@ export default {
     closeAll: '关闭所有标签页'
   },
   demos: {
+    title: '综合示例',
     article: {
-      viewTitle: '文章',
+      viewTitle: '文章管理',
       title: '标题',
       author: '作者',
       date: '发布日期',
       summary: '内容摘要',
       cover: '封面',
       content: '内容'
+    }
+  },
+  components: {
+    title: '组件',
+    richText: {
+      title: '富文本'
+    },
+    markdown: {
+      title: 'Markdown'
     }
   }
 }

@@ -6,7 +6,7 @@ const { t } = useI18n()
 const filterFields = reactive([
   {
     key: 'title',
-    name: () => t('demos.article.viewTitle')
+    name: () => t('demos.article.title')
   }
 ])
 </script>

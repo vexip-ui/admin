@@ -53,6 +53,8 @@ function useAccessGuard(router: Router) {
     }
 
     router.getRoutes().forEach(route => {
+      if (route.meta?.tab === false) return
+
       if (route.meta?.tab?.fixed) {
         const { path, name, meta } = route
         const { fixed, icon, iconProps, iconOnly } = meta?.tab || {}
@@ -87,7 +89,7 @@ function useAccessGuard(router: Router) {
     if (to.name === NotFoundRoute.name) {
       next({ path: to.fullPath, replace: true, query })
     } else {
-      const redirectPath = redirect as string || to.path
+      const redirectPath = (redirect as string) || to.path
 
       next({
         ...(redirectPath === to.path ? { ...to, replace: true } : { path: redirectPath }),

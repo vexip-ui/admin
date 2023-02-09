@@ -7,18 +7,22 @@ declare module 'vue-router' {
     title?: string | (() => string),
     loaded?: boolean,
     roles?: string[],
-    tab?: {
+    tab?:
+    | {
       fixed?: boolean,
       icon?: string | Record<string, any>,
       iconProps?: IconMinorProps,
       iconOnly?: boolean
-    },
-    menu?: {
+    }
+    | false,
+    menu?:
+    | {
       single?: boolean,
       order?: number,
       icon?: string | Record<string, any>,
       iconProps?: IconMinorProps,
       disabled?: boolean
     }
+    | false
   }
 }
