@@ -50,8 +50,9 @@ watch(
 
     if (matched.length > 1) {
       const parentRoute = matched.at(-2)!
+      const menu = parentRoute.meta?.menu
 
-      if (parentRoute.meta?.menu?.single) {
+      if (menu && menu.single) {
         activeMenu.value = parentRoute.path
       } else {
         activeMenu.value = fullPath || path
@@ -180,6 +181,9 @@ async function handleSignOut() {
     :user="user"
     :config="[]"
     :actions="userActions"
+    fixed-main
+    header-fixed
+    style="height: 100%"
     @menu-select="handleMenuSelect"
     @user-action="handleUserAction"
   >
@@ -213,15 +217,15 @@ async function handleSignOut() {
           </VTabNavItem>
         </VTabNav>
       </section>
-      <section class="main-view">
+      <div class="main-view">
         <router-view v-slot="{ Component, route: currentRoute }">
           <transition name="fade-move" appear mode="out-in">
-            <div :key="currentRoute.fullPath" style="width: 100%; height: 100%;">
+            <div :key="currentRoute.fullPath" style="width: 100%; height: 100%">
               <component :is="Component"></component>
             </div>
           </transition>
         </router-view>
-      </section>
+      </div>
     </template>
     <template #header-left>
       <VBreadcrumb :options="breadcrumbs"></VBreadcrumb>
@@ -270,9 +274,7 @@ async function handleSignOut() {
       color: var(--vxp-content-color-base);
       border: var(--vxp-border-light-1);
       border-radius: var(--vxp-radius-small);
-      transition:
-        var(--vxp-transition-color),
-        var(--vxp-transition-background),
+      transition: var(--vxp-transition-color), var(--vxp-transition-background),
         var(--vxp-transition-border);
 
       &:hover,
@@ -314,27 +316,25 @@ async function handleSignOut() {
   }
 }
 
-.vxp-layout__main {
-  height: 100%;
-}
-
 .main-view {
   height: calc(100% - var(--nav-tabs-height));
   background-color: var(--vxp-fill-color-background);
 }
 
-.fade-move-leave-active,
-.fade-move-enter-active {
-  transition: opacity 250ms, transform 250ms;
-}
+.fade-move {
+  &-leave-active,
+  &-enter-active {
+    transition: opacity 250ms, transform 250ms;
+  }
 
-.fade-move-enter-from {
-  opacity: 0%;
-  transform: translateX(-30px);
-}
+  &-enter-from {
+    opacity: 0%;
+    transform: translateX(-30px);
+  }
 
-.fade-move-leave-to {
-  opacity: 0%;
-  transform: translateX(30px);
+  &-leave-to {
+    opacity: 0%;
+    transform: translateX(30px);
+  }
 }
 </style>

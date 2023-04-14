@@ -198,7 +198,7 @@ function updateSelection() {
             </VButton>
             <slot name="actions"></slot>
           </VColumn>
-          <div style="flex: 1 0 auto;"></div>
+          <div style="flex: 1 0 auto"></div>
           <VColumn flex="0">
             <VSpace
               v-if="searchFields.length"
@@ -224,6 +224,7 @@ function updateSelection() {
             <VTable
               ref="table"
               highlight
+              use-y-bar
               :data="activeEntities"
               :height="bodyHeight"
               :current-page="currentPage"
@@ -241,7 +242,7 @@ function updateSelection() {
                 fixed="right"
                 :width="actionsWidth"
                 no-ellipsis
-                style="justify-content: center;"
+                style="justify-content: center"
               >
                 <template #default="{ row }">
                   <VLinker type="primary" :icon="IPenToSquareR" @click="handleEdit(row)">
