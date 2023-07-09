@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { noop, transformListToMap } from '@vexip-ui/utils'
 
-import type { PropType } from 'vue'
 import { Table } from 'vexip-ui'
+
+import type { PropType } from 'vue'
 
 interface FilterField<T = any> {
   key: string,

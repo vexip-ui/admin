@@ -1,10 +1,13 @@
-import { defineStore } from 'pinia'
-import { login, logout, getCurrentUser } from '@/service/user'
-import { router, RoutePath } from '@/router'
-import { pinia } from './pinia'
-import { setAccessToken, getAccessToken, clearAccessToken } from '@/utils/auth'
+import { getCurrentUser, login, logout } from '@/service/user'
+import { RoutePath, router } from '@/router'
 
-import type { User, LoginParams } from '@/service/user'
+import { clearAccessToken, getAccessToken, setAccessToken } from '@/utils/auth'
+
+import { defineStore } from 'pinia'
+
+import { pinia } from './pinia'
+
+import type { LoginParams, User } from '@/service/user'
 
 interface UserState {
   currentUser: User | null

@@ -1,4 +1,5 @@
 import { createI18n } from 'vue-i18n'
+
 import { languages, setHtmlLanguage } from './helper'
 
 import type { LocaleOptions } from 'vexip-ui'

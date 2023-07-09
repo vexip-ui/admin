@@ -1,5 +1,6 @@
 import { relative } from 'node:path'
 import { readFileSync } from 'node:fs'
+
 import glob from 'fast-glob'
 import { normalizePath } from 'vite'
 
@@ -101,13 +102,14 @@ export function createIconPlugin(options: IconPluginOptions = {}): Plugin {
       isBuild = config.command === 'build'
     },
     resolveId(id) {
-      return ICON_REGISTER === id ? id : null
+      return ICON_REGISTER === id ? `\0${id}` : null
     },
     async load(id, ssr) {
-      if (!isBuild || ICON_REGISTER !== id) return null
-      if (ssr && !isBuild) return 'export default {}'
+      if (!isBuild && !ssr) return null
 
-      return await renderModuleCode()
+      if (id.endsWith(ICON_REGISTER)) {
+        return ssr && !isBuild ? 'export default {}' : await renderModuleCode()
+      }
     },
     configureServer: ({ middlewares }) => {
       // middlewares.use(cors({ origin: '*' }))

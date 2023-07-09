@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { staticRoutes, RoutePath } from './routes'
+
+import { RoutePath, staticRoutes } from './routes'
 import { useRouterGuards } from './guard'
 
 export { RoutePath, useRouterGuards }

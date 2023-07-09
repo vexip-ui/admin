@@ -6,14 +6,14 @@
   "license": "MIT",
   "private": false,
   "description": "A management system template for Vexip UI",
-  "packageManager": "pnpm@7.14.2",
+  "packageManager": "pnpm@8.3.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint --fix --ext .js,.cjs,.mjs,.ts,.tsx,.vue src/** types/**",
-    "lint:style": "stylelint **/*.{vue,css,scss} --fix",
-    "prettier": "prettier --write \"src/**/*.{ts,js,json,css,pcss,scss,vue,html,md}\"",
+    "lint": "eslint --cache --fix --ext \"**/*.{js,cjs,mjs,ts,tsx,vue}\"",
+    "lint:style": "stylelint --cache --fix \"**/*.{vue,css,scss}\"",
+    "prettier": "prettier --write \"**/*.{ts,js,json,css,pcss,scss,vue,html,md}\"",
     "precommit": "lint-staged -c ./.husky/.lintstagedrc -q --allow-empty",
     "prepare": "is-ci || husky install",
     "create-business": "tsx scripts/create-business.ts"

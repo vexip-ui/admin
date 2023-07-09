@@ -3,7 +3,7 @@ import { commonInstance } from './request'
 import { parseResult } from './helper'
 
 import type { AxiosRequestConfig } from 'axios'
-import type { Result, BusinessBase } from './helper'
+import type { BusinessBase, Result } from './helper'
 
 export interface Resource extends BusinessBase {
   url: string,

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useAccessStore, useUserStore, useNavTabStore } from '@/store'
+import { useAccessStore, useNavTabStore, useUserStore } from '@/store'
+
 import { callIfFunc } from '@vexip-ui/utils'
 
 import type { LayoutHeaderAction } from 'vexip-ui'

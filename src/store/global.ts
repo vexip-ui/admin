@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+
 import { pinia } from './pinia'
 
 interface GlobalState {

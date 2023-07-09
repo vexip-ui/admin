@@ -1,4 +1,4 @@
-import { LoginRoute, RootRoute, NotFoundRoute } from './common'
+import { LoginRoute, NotFoundRoute, RootRoute } from './common'
 import { ensureArray } from '@vexip-ui/utils'
 
 import type { RouteRecordRaw } from 'vue-router'
@@ -19,8 +19,4 @@ for (const module of Object.values(asyncRouteModules)) {
   }
 }
 
-export const staticRoutes = [
-  LoginRoute,
-  RootRoute,
-  NotFoundRoute
-]
+export const staticRoutes = [LoginRoute, RootRoute, NotFoundRoute]

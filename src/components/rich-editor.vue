@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { useFieldStore } from 'vexip-ui'
-import { createToolbar, createEditor } from '@wangeditor/editor'
+import { createEditor, createToolbar } from '@wangeditor/editor'
 import { isDefined } from '@vexip-ui/utils'
 
 import type { PropType } from 'vue'
 import type { ComponentState } from 'vexip-ui'
-import type { IToolbarConfig, IEditorConfig, SlateDescendant, IDomEditor } from '@wangeditor/editor'
+import type { IDomEditor, IEditorConfig, IToolbarConfig, SlateDescendant } from '@wangeditor/editor'
 
 const {
   idFor,

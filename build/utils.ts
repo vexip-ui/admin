@@ -1,6 +1,7 @@
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { bgYellow, bgCyan, bgGreen, bgRed, yellow, cyan, green, red } from 'kolorist'
+
+import { bgCyan, bgGreen, bgRed, bgYellow, cyan, green, red, yellow } from 'kolorist'
 
 import type { Config } from 'prettier'
 

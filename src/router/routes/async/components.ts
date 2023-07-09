@@ -1,5 +1,6 @@
-import { AsyncViewLayout } from '../helper'
 import { t } from '@/locale'
+
+import { AsyncViewLayout } from '../helper'
 
 import type { RouteRecordRaw } from 'vue-router'
 

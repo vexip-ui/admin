@@ -1,10 +1,14 @@
-import { defineStore } from 'pinia'
 import { asyncRoutes } from '@/router/routes'
+
+import { createIconRenderer } from '@/utils/component'
+
+import { filterTree } from '@/utils/transform'
+
+import { defineStore } from 'pinia'
+
 import { pinia } from './pinia'
 import { useUserStore } from './user'
 import { callIfFunc } from '@vexip-ui/utils'
-import { createIconRenderer } from '@/utils/component'
-import { filterTree } from '@/utils/transform'
 
 import type { RouteRecordRaw } from 'vue-router'
 import type { MenuOptions } from 'vexip-ui'

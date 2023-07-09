@@ -1,6 +1,6 @@
 import { mock } from 'mockjs'
 
-import type { User, LoginParams } from '@/service/user'
+import type { LoginParams, User } from '@/service/user'
 import type { MockParams } from './common'
 
 export function getUsers(): Array<User & { password: string, token: string }> {
@@ -14,9 +14,7 @@ export function getUsers(): Array<User & { password: string, token: string }> {
       avatar: '',
       email: 'root@vexipui.com',
       lastLogin: Date.now(),
-      roles: [
-        { name: 'Admin', auth: 'admin' }
-      ]
+      roles: [{ name: 'Admin', auth: 'admin' }]
     },
     {
       id: '2',
@@ -27,9 +25,7 @@ export function getUsers(): Array<User & { password: string, token: string }> {
       avatar: 'https://www.vexipui.com/qmhc.jpg',
       email: '544022268@qq.com',
       lastLogin: '2022-06-14T07:54:03.880+00:00',
-      roles: [
-        { name: 'Guest', auth: 'guest' }
-      ]
+      roles: [{ name: 'Guest', auth: 'guest' }]
     }
   ]
 }

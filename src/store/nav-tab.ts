@@ -1,10 +1,14 @@
-import { defineStore } from 'pinia'
-import { pinia } from './pinia'
 import { LoginRoute, NotFoundRoute } from '@/router/routes/common'
+
 import { createIconRenderer } from '@/utils/component'
+
+import { defineStore } from 'pinia'
+
+import { pinia } from './pinia'
+
 import { isClient } from '@vexip-ui/utils'
 
-import type { RouteLocationNormalized, RouteParams, LocationQuery } from 'vue-router'
+import type { LocationQuery, RouteLocationNormalized, RouteParams } from 'vue-router'
 import type { IconMinorProps } from 'vexip-ui'
 
 export interface TabOptions {

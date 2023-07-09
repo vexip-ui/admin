@@ -1,6 +1,8 @@
-import { useGlobalStore, useUserStore, useAccessStore, useNavTabStore } from '@/store'
-import { LoginRoute, NotFoundRoute, RootRoute } from './routes/common'
+import { useAccessStore, useGlobalStore, useNavTabStore, useUserStore } from '@/store'
+
 import { getAccessToken } from '@/utils/auth'
+
+import { LoginRoute, NotFoundRoute, RootRoute } from './routes/common'
 
 import type { Router } from 'vue-router'
 

@@ -1,4 +1,4 @@
-import Mock, { mock, Random } from 'mockjs'
+import Mock, { Random, mock } from 'mockjs'
 import { getUsers } from './user'
 
 import type { Result } from '@/service/common'

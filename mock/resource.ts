@@ -1,4 +1,4 @@
-import { mock, Random } from 'mockjs'
+import { Random, mock } from 'mockjs'
 
 mock('/resource/file', async ({ body }) => {
   if (body instanceof FormData) {

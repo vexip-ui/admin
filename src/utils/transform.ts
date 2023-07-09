@@ -1,8 +1,9 @@
-import { isDefined } from '@vexip-ui/utils'
 import { parseResult } from '@/service/common'
 
+import { isDefined } from '@vexip-ui/utils'
+
 import type { FileOptions } from 'vexip-ui'
-import type { Result, Resource } from '@/service/common'
+import type { Resource, Result } from '@/service/common'
 
 interface BuildFormOptions {
   dateFields?: string[]
@@ -51,25 +52,22 @@ export function filterTree<T = any>(
   method: (item: T) => boolean,
   options: TreeFilterOptions<keyof T> = {}
 ) {
-  const {
-    childField = 'children' as keyof T,
-    clone = true,
-    strict = true
-  } = options
+  const { childField = 'children' as keyof T, clone = true, strict = true } = options
 
-  const filter = (list: T[]) => (clone ? list.map(item => ({ ...item })) : list).filter(item => {
-    const reslut = method(item)
+  const filter = (list: T[]) =>
+    (clone ? list.map(item => ({ ...item })) : list).filter(item => {
+      const reslut = method(item)
 
-    if (!strict || reslut) {
-      const children = item[childField] as T[]
+      if (!strict || reslut) {
+        const children = item[childField] as T[]
 
-      if (Array.isArray(children) && children.length) {
-        (item as any)[childField] = filter(children)
+        if (Array.isArray(children) && children.length) {
+          (item as any)[childField] = filter(children)
+        }
       }
-    }
 
-    return reslut
-  })
+      return reslut
+    })
 
   return filter(tree)
 }

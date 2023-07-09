@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { uploadUrl } from '@/service/common'
-import { getArticleById, createArticle, updateArticle } from '@/service/article'
+import { createArticle, getArticleById, updateArticle } from '@/service/article'
 import { createUploadSuccess } from '@/utils/transform'
 
 import type { Article } from '@/service/article'

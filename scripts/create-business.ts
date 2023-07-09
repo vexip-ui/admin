@@ -1,4 +1,5 @@
-import { resolve, dirname } from 'node:path'
+import { dirname, resolve } from 'node:path'
+
 import fs from 'fs-extra'
 import minimist from 'minimist'
 import prettier from 'prettier'
@@ -6,7 +7,7 @@ import { ESLint } from 'eslint'
 import stylelint from 'stylelint'
 import prompts from 'prompts'
 import { toCamelCase, toCapitalCase, toKebabCase } from '@vexip-ui/utils'
-import { rootDir, prettierConfig, logger } from '../build/utils'
+import { logger, prettierConfig, rootDir } from '../build/utils'
 
 const { existsSync, ensureDir, writeFile } = fs
 

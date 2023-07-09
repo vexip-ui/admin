@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getArticles, deleteArticles } from '@/service/article'
+import { deleteArticles, getArticles } from '@/service/article'
 
 const { t } = useI18n()
 

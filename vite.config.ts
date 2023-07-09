@@ -1,5 +1,6 @@
-import { resolve, dirname } from 'node:path'
+import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+
 import { defineConfig, loadEnv, splitVendorChunkPlugin } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -27,9 +28,7 @@ export default defineConfig(async ({ command, mode }) => {
     base: VITE_BASE_PATH,
     define: {},
     resolve: {
-      alias: [
-        { find: /^@\/(.+)/, replacement: resolve(rootDir, 'src/$1') }
-      ],
+      alias: [{ find: /^@\/(.+)/, replacement: resolve(rootDir, 'src/$1') }],
       dedupe: ['vue', 'vexip-ui']
     },
     esbuild: {
@@ -53,14 +52,7 @@ export default defineConfig(async ({ command, mode }) => {
       chunkSizeWarningLimit: 10 * 1024
     },
     optimizeDeps: {
-      include: isBuild
-        ? undefined
-        : [
-            'vexip-ui',
-            '@vexip-ui/icons',
-            '@wangeditor/editor',
-            'mockjs'
-          ]
+      include: isBuild ? undefined : ['vexip-ui', '@vexip-ui/icons', '@wangeditor/editor', 'mockjs']
     },
     plugins: [
       splitVendorChunkPlugin(),

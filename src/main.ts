@@ -3,6 +3,7 @@ import './style/index.scss'
 import 'virtual:icon-register'
 
 import { createApp } from 'vue'
+
 import { Confirm, Toast } from 'vexip-ui'
 import App from './app.vue'
 import { i18n, initPromise } from './locale'
@@ -17,13 +18,7 @@ async function init() {
   await initPromise
 
   useRouterGuards(router)
-  createApp(App)
-    .use(Confirm)
-    .use(Toast)
-    .use(pinia)
-    .use(i18n)
-    .use(router)
-    .mount('#app')
+  createApp(App).use(Confirm).use(Toast).use(pinia).use(i18n).use(router).mount('#app')
 }
 
 init()

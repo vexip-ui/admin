@@ -1,9 +1,11 @@
-import Axios, { AxiosHeaders } from 'axios'
-import { addSeconds, differenceMilliseconds, deepClone } from '@vexip-ui/utils'
-import { BASE_SERVER } from './config'
-import { getAuthorization, clearAccessToken } from '@/utils/auth'
+import { clearAccessToken, getAuthorization } from '@/utils/auth'
 
-import type { AxiosRequestConfig, AxiosAdapter, AxiosResponse } from 'axios'
+import Axios, { AxiosHeaders } from 'axios'
+
+import { addSeconds, deepClone, differenceMilliseconds } from '@vexip-ui/utils'
+import { BASE_SERVER } from './config'
+
+import type { AxiosAdapter, AxiosRequestConfig, AxiosResponse } from 'axios'
 import type { RequestInstance, Result } from './helper'
 
 const defaultAdapter = Axios.defaults.adapter as AxiosAdapter
