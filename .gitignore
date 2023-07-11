@@ -9,7 +9,6 @@ lerna-debug.log*
 
 package-lock.json
 yarn.lock
-pnpm-lock.yaml
 
 node_modules
 dist
@@ -27,3 +26,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+.eslintcache
+.stylelintcache
