@@ -2029,8 +2029,10 @@ declare global {
   const VConfirm: typeof import('vexip-ui')['Confirm']
   const VContextmenu: typeof import('vexip-ui')['Contextmenu']
   const VIcon: typeof import('vexip-ui')['Icon']
+  const VLoading: typeof import('vexip-ui')['Loading']
   const VMessage: typeof import('vexip-ui')['Message']
   const VNotice: typeof import('vexip-ui')['Notice']
+  const VToast: typeof import('vexip-ui')['Toast']
   const computed: typeof import('vue')['computed']
   const createApp: typeof import('vue')['createApp']
   const customRef: typeof import('vue')['customRef']
@@ -4300,7 +4302,10 @@ declare module 'vue' {
     readonly VConfirm: UnwrapRef<typeof import('vexip-ui')['Confirm']>
     readonly VContextmenu: UnwrapRef<typeof import('vexip-ui')['Contextmenu']>
     readonly VIcon: UnwrapRef<typeof import('vexip-ui')['Icon']>
+    readonly VLoading: UnwrapRef<typeof import('vexip-ui')['Loading']>
     readonly VMessage: UnwrapRef<typeof import('vexip-ui')['Message']>
+    readonly VNotice: UnwrapRef<typeof import('vexip-ui')['Notice']>
+    readonly VToast: UnwrapRef<typeof import('vexip-ui')['Toast']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly createApp: UnwrapRef<typeof import('vue')['createApp']>
     readonly customRef: UnwrapRef<typeof import('vue')['customRef']>
@@ -6556,7 +6561,10 @@ declare module '@vue/runtime-core' {
     readonly VConfirm: UnwrapRef<typeof import('vexip-ui')['Confirm']>
     readonly VContextmenu: UnwrapRef<typeof import('vexip-ui')['Contextmenu']>
     readonly VIcon: UnwrapRef<typeof import('vexip-ui')['Icon']>
+    readonly VLoading: UnwrapRef<typeof import('vexip-ui')['Loading']>
     readonly VMessage: UnwrapRef<typeof import('vexip-ui')['Message']>
+    readonly VNotice: UnwrapRef<typeof import('vexip-ui')['Notice']>
+    readonly VToast: UnwrapRef<typeof import('vexip-ui')['Toast']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly createApp: UnwrapRef<typeof import('vue')['createApp']>
     readonly customRef: UnwrapRef<typeof import('vue')['customRef']>

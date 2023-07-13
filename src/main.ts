@@ -4,7 +4,6 @@ import 'virtual:icon-register'
 
 import { createApp } from 'vue'
 
-import { Confirm, Toast } from 'vexip-ui'
 import App from './app.vue'
 import { i18n, initPromise } from './locale'
 import { pinia } from './store'
@@ -18,7 +17,17 @@ async function init() {
   await initPromise
 
   useRouterGuards(router)
-  createApp(App).use(Confirm).use(Toast).use(pinia).use(i18n).use(router).mount('#app')
+  createApp(App)
+    .use(VConfirm)
+    .use(VContextmenu)
+    .use(VLoading)
+    .use(VMessage)
+    .use(VNotice)
+    .use(VToast)
+    .use(pinia)
+    .use(i18n)
+    .use(router)
+    .mount('#app')
 }
 
 init()
