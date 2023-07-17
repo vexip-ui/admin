@@ -19,14 +19,14 @@
     "create-business": "tsx scripts/create-business.ts"
   },
   "dependencies": {
-    "@vexip-ui/hooks": "^1.11.1",
+    "@vexip-ui/hooks": "^1.11.2",
     "@vexip-ui/icons": "^1.2.0",
     "@vexip-ui/utils": "^1.15.0",
     "@wangeditor/editor": "^5.1.23",
     "axios": "^1.4.0",
     "js-cookie": "^3.0.5",
     "pinia": "^2.1.4",
-    "vexip-ui": "^2.1.27",
+    "vexip-ui": "^2.1.28",
     "vue": "^3.3.4",
     "vue-i18n": "^9.2.2",
     "vue-router": "^4.2.4"
@@ -39,7 +39,7 @@
     "@types/js-cookie": "^3.0.3",
     "@types/minimist": "^1.2.2",
     "@types/mockjs": "^1.0.7",
-    "@types/node": "^20.4.1",
+    "@types/node": "^20.4.2",
     "@types/prettier": "^2.7.3",
     "@types/prompts": "^2.4.4",
     "@vexip-ui/commitlint-config": "^0.2.0",
@@ -51,7 +51,7 @@
     "@vitejs/plugin-vue-jsx": "^3.0.1",
     "@vue/runtime-core": "^3.3.4",
     "dotenv": "^16.3.1",
-    "eslint": "^8.44.0",
+    "eslint": "^8.45.0",
     "fast-glob": "^3.3.0",
     "fs-extra": "^11.1.1",
     "husky": "^8.0.3",
@@ -69,8 +69,8 @@
     "typescript": "~5.1.6",
     "unplugin-auto-import": "^0.16.6",
     "unplugin-vue-components": "^0.25.1",
-    "vite": "^4.4.2",
-    "vue-tsc": "^1.8.4"
+    "vite": "^4.4.4",
+    "vue-tsc": "^1.8.5"
   },
   "pnpm": {
     "patchedDependencies": {
