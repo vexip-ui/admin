@@ -230,6 +230,13 @@ async function handleSignOut() {
     </template>
     <template #header-left>
       <VBreadcrumb :options="breadcrumbs"></VBreadcrumb>
+      <slot name="header-left"></slot>
+    </template>
+    <template v-if="$slots['header-main']" #header-main>
+      <slot name="header-main"></slot>
+    </template>
+    <template v-if="$slots['header-right']" #header-right>
+      <slot name="header-right"></slot>
     </template>
   </VLayout>
 </template>

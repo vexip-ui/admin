@@ -226,6 +226,7 @@ function updateSelection() {
               ref="table"
               highlight
               use-y-bar
+              use-x-bar
               :data="activeEntities"
               :height="bodyHeight"
               :current-page="currentPage"
