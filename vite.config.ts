@@ -1,7 +1,7 @@
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-import { defineConfig, loadEnv, splitVendorChunkPlugin } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import autoImport from 'unplugin-auto-import/vite'
@@ -36,26 +36,32 @@ export default defineConfig(async ({ command, mode }) => {
     },
     server: {
       port: 6200,
-      host: '0.0.0.0',
-      proxy: {
-        '/api': {
-          target: VITE_BASE_SERVER,
-          rewrite: path => path.replace(/^\/api/, '')
-        },
-        '/resource': {
-          target: VITE_RESOURCE_SERVER,
-          rewrite: path => path.replace(/^\/resource/, '')
-        }
-      }
+      host: '0.0.0.0'
+      // proxy: {
+      //   '/api': {
+      //     target: VITE_BASE_SERVER,
+      //     rewrite: path => path.replace(/^\/api/, '')
+      //   },
+      //   '/resource': {
+      //     target: VITE_RESOURCE_SERVER,
+      //     rewrite: path => path.replace(/^\/resource/, '')
+      //   }
+      // }
     },
     build: {
-      chunkSizeWarningLimit: 10 * 1024
+      chunkSizeWarningLimit: 10 * 1024,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vue: ['vue']
+          }
+        }
+      }
     },
     optimizeDeps: {
       include: isBuild ? undefined : ['vexip-ui', '@vexip-ui/icons', '@wangeditor/editor', 'mockjs']
     },
     plugins: [
-      splitVendorChunkPlugin(),
       vue(),
       vueJsx(),
       autoImport({

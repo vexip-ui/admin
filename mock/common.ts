@@ -1,7 +1,5 @@
-import Mock, { Random, mock } from 'mockjs'
-import { getUsers } from './user'
-
-import type { Result } from '@/service/common'
+import { faker } from '@faker-js/faker'
+import { HttpResponse, http } from 'msw'
 
 export interface MockParams {
   url: string,
@@ -10,182 +8,90 @@ export interface MockParams {
   headers?: Record<string, string>
 }
 
-type ResultType<T> = {
-  [P in keyof T]: T[P] extends () => any ? ReturnType<T[P]> : T[P]
-}
-
-const XHR = (Mock as any).XHR
-
-XHR.prototype.__send = XHR.prototype.send
-XHR.prototype.send = function (...args: any) {
-  if (this.custom.xhr) {
-    this.custom.xhr.withCredentials = this.withCredentials ?? false
-
-    try {
-      // 同步请求时会报错
-      // 暂未找到方法判断是否为同步请求
-      this.custom.xhr.responseType = this.responseType
-    } catch (e) {}
-  }
-
-  if (this.custom.requestHeaders) {
-    this.custom.options.headers = { ...this.custom.requestHeaders }
-  }
-
-  this.__send(...args)
-}
-
-Mock.setup({ timeout: '200-600' })
-
-Random.extend({
-  telephone() {
-    return `1${Random.pick(['30', '32', '35', '59', '80', '89'])}${mock(/\d{8}/)}`
-  }
-})
-
-export function createResponse<T extends { [x: string]: any } | { [x: string]: any }[]>(
-  data: T,
-  range?: string
+export function createResult<T>(
+  data: T | null = null,
+  success = true,
+  message?: string,
+  status = 200
 ) {
-  return (): Result<T extends any[] ? ResultType<T[0]>[] : ResultType<T>> => {
-    const isArrayData = Array.isArray(data)
-
-    if (isArrayData && !range) {
-      range = '20-30'
-    }
-
-    const mockResult = mock(
-      isArrayData
-        ? {
-            [`data|${range}`]: data
-          }
-        : data
-    )
-
-    return {
-      status: 1,
-      message: 'ok',
-      data: isArrayData ? mockResult.data : mockResult
-    }
-  }
+  return HttpResponse.json(
+    {
+      status: success ? 1 : 0,
+      message: message || (success ? 'ok' : 'fail'),
+      data
+    },
+    status !== 200 ? { status } : undefined
+  )
 }
 
 export function mockCommonRequests<T extends { id?: any }>(url: string, getList: () => T[]) {
+  url = url.trim().replace(/\/+$/, '')
   let list = getList()
 
-  mock(url, 'get', () => {
-    return {
-      status: 1,
-      message: 'ok',
-      data: list
-    }
-  })
+  const handlers = [
+    http.get(url, () => createResult(list)),
 
-  mock(new RegExp(`${url}\\/[^/]+`), 'get', ({ url }) => {
-    const id = url.split('/').at(-1)!
-    const entity = list.find(entity => String(entity.id) === id)
+    http.get(`${url}/:id`, ({ params }) => {
+      const id = params.id
+      const entity = list.find(entity => String(entity.id) === id)
 
-    return {
-      status: 1,
-      message: 'ok',
-      data: entity || null
-    }
-  })
+      return createResult(entity)
+    }),
 
-  mock(url, 'post', ({ body }) => {
-    try {
-      const entity = JSON.parse(body)
+    http.post(url, async ({ request }) => {
+      try {
+        const entity = (await request.json()) as T
 
-      entity.id = Random.guid()
-      list.push(entity)
+        entity.id = faker.string.uuid()
+        list.push(entity)
 
-      return {
-        status: 1,
-        message: 'ok',
-        data: entity
-      }
-    } catch (error) {}
+        return createResult(entity)
+      } catch (error) {}
 
-    return {
-      status: 1,
-      message: 'ok',
-      data: null
-    }
-  })
+      return createResult()
+    }),
 
-  mock(url, 'put', ({ body }) => {
-    try {
-      const newEntity = JSON.parse(body)
-      const entity = list.find(entity => entity.id === newEntity.id)
+    http.put(url, async ({ request }) => {
+      try {
+        const newEntity = (await request.json()) as T
+        const entity = list.find(entity => entity.id === newEntity.id)
 
-      if (entity) {
-        Object.assign(entity, newEntity)
+        if (entity) {
+          Object.assign(entity, newEntity)
 
-        return {
-          status: 1,
-          message: 'ok',
-          data: entity
+          return createResult(entity)
         }
+      } catch (error) {}
+
+      return createResult()
+    }),
+
+    http.delete(`${url}/:id`, ({ params }) => {
+      const id = params.id
+      const index = list.findIndex(entity => entity.id === id)
+
+      if (index > -1) {
+        list.splice(index, 1)
       }
-    } catch (error) {}
 
-    return {
-      status: 1,
-      message: 'ok',
-      data: null
-    }
-  })
+      return createResult(index > -1)
+    }),
 
-  mock(new RegExp(`${url}\\/[^/]+`), 'delete', ({ url }) => {
-    const id = url.split('/').at(-1)!
-    const index = list.findIndex(entity => entity.id === id)
+    http.delete(url, async ({ request }) => {
+      try {
+        const ids = (await request.json()) as string[]
 
-    if (index > -1) {
-      list.splice(index, 1)
-    }
+        if (ids.length) {
+          const idSet = new Set(ids)
+          list = list.filter(entity => !idSet.has(entity.id))
 
-    return {
-      status: 1,
-      message: 'ok',
-      data: index > -1
-    }
-  })
-
-  mock(url, 'delete', ({ body }) => {
-    try {
-      const ids = JSON.parse(body)
-
-      if (ids.length) {
-        const idSet = new Set(ids)
-
-        list = list.filter(entity => !idSet.has(entity.id))
-
-        return {
-          status: 1,
-          message: 'ok',
-          data: true
+          return createResult(true)
         }
-      }
-    } catch (error) {}
+      } catch (error) {}
 
-    return {
-      status: 1,
-      message: 'ok',
-      data: false
-    }
-  })
-}
+      return createResult(false)
+    })
+  ]
 
-export function createBusinessBase() {
-  const user = Random.pick(getUsers())
-
-  return {
-    id: Random.guid(),
-    creatorId: user.id,
-    creatorName: user.alias,
-    createdTime: Random.datetime(),
-    modifierId: user.id,
-    modifierName: user.alias,
-    modifiedTime: Random.datetime()
-  }
+  return { handlers, getList: () => list }
 }

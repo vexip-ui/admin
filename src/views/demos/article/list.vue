@@ -21,8 +21,8 @@ const filterFields = reactive([
     :actions-width="100"
   >
     <template #columns>
-      <VTableColumn id-key="date" :name="t('demos.article.date')" :width="200"></VTableColumn>
-      <VTableColumn id-key="author" :name="t('demos.article.author')" :width="100"></VTableColumn>
+      <TableDateColumn id-key="date" :name="t('demos.article.date')"></TableDateColumn>
+      <VTableColumn id-key="author" :name="t('demos.article.author')" :width="200"></VTableColumn>
       <VTableColumn id-key="title" :name="t('demos.article.title')"></VTableColumn>
     </template>
   </ListContainer>

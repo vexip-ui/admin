@@ -9,11 +9,13 @@ import { i18n, initPromise } from './locale'
 import { pinia } from './store'
 import { router, useRouterGuards } from './router'
 
-if (import.meta.env.VITE_USE_MOCK) {
-  import.meta.glob('../mock/**/*.ts', { eager: true })
-}
-
 async function init() {
+  if (import.meta.env.VITE_USE_MOCK) {
+    await (
+      await import('../mock/worker')
+    ).initPromise
+  }
+
   await initPromise
 
   useRouterGuards(router)

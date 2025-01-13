@@ -1,6 +1,6 @@
 import { createCommonRequests } from './common'
 
-import type { FileOptions } from 'vexip-ui'
+import type { UploadFileOptions } from 'vexip-ui'
 import type { Dateable } from '@vexip-ui/utils'
 import type { BusinessBase } from './common/helper'
 
@@ -9,7 +9,7 @@ export interface Article extends BusinessBase {
   author: string,
   date: Dateable,
   summary: string,
-  cover: FileOptions[],
+  cover: UploadFileOptions[],
   content: string
 }
 
@@ -23,10 +23,4 @@ const {
   deleteByIds: deleteArticles
 } = createCommonRequests<Article, Article['id']>(prefix)
 
-export {
-  getArticles,
-  getArticleById,
-  createArticle,
-  updateArticle,
-  deleteArticles
-}
+export { getArticles, getArticleById, createArticle, updateArticle, deleteArticles }

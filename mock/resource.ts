@@ -1,10 +1,21 @@
-import { Random, mock } from 'mockjs'
+import { Random } from 'mockjs'
+import { http } from 'msw'
+import { createResult } from './common'
 
-mock('/resource/file', async ({ body }) => {
-  if (body instanceof FormData) {
-    const file = body.get('file') as File
+export const handlers = [
+  http.post('/resource/file', async ({ request }) => {
+    const data = await request.formData()
+    const file = data.get('file')
+
+    if (!file) {
+      return createResult(null, false, 'Missing file', 400)
+    }
+
+    if (!(file instanceof File)) {
+      return createResult(null, false, 'Uploaded stuff is not a File', 400)
+    }
+
     const reader = new FileReader()
-
     reader.readAsDataURL(file)
 
     let base64: string | null = null
@@ -22,24 +33,16 @@ mock('/resource/file', async ({ body }) => {
       const name = units.slice(-1).join('.')
       const ext = units.at(-1)
 
-      return {
-        status: 1,
-        message: 'ok',
-        data: {
-          id,
-          name,
-          ext,
-          size: file.size,
-          med: '',
-          url: base64
-        }
-      }
+      return createResult({
+        id,
+        name,
+        ext,
+        size: file.size,
+        med: '',
+        url: base64
+      })
     }
-  }
 
-  return {
-    status: 0,
-    message: 'fail',
-    data: null
-  }
-})
+    return createResult(null, false)
+  })
+]
