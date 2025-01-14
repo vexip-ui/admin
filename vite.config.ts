@@ -13,16 +13,30 @@ import { createIconPlugin } from './build/plugins/icon'
 
 const rootDir = dirname(fileURLToPath(import.meta.url))
 
+const vxpStylePresetRE = /vexip-ui\/style(?:\/dark)?\/preset/
+
+const basePath = '@/style/variables/base.scss'
+const darkPath = '@/style/variables/dark.scss'
+
 export default defineConfig(async ({ command, mode }) => {
   const isBuild = command === 'build'
   const env = loadEnv(mode, rootDir)
   const {
     VITE_APP_TITLE,
+    VITE_SUPPORT_DARK_MODE,
     VITE_BASE_PATH,
-    VITE_DROP_CONSOLE,
-    VITE_BASE_SERVER,
-    VITE_RESOURCE_SERVER
+    VITE_DROP_CONSOLE
+    // VITE_BASE_SERVER,
+    // VITE_RESOURCE_SERVER
   } = env
+
+  const vexipResolver = VexipUIResolver({
+    prefix: 'V',
+    iconPrefix: '',
+    importDarkTheme: VITE_SUPPORT_DARK_MODE === 'true',
+    importStyle: 'sass',
+    fullStyle: !isBuild
+  })
 
   return {
     base: VITE_BASE_PATH,
@@ -48,6 +62,27 @@ export default defineConfig(async ({ command, mode }) => {
       //   }
       // }
     },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: (code: string, path: string) => {
+            // 篡改组件库基础样式中的变量文件的引用
+            if (vxpStylePresetRE.test(path)) {
+              if (path.includes('dark')) {
+                return code.replace("@use './variables.scss' as *;", `@use '${darkPath}' as *;`)
+              }
+
+              return code.replace(
+                "@use './design/variables.scss' as *;",
+                `@use '${basePath}' as *;`
+              )
+            }
+
+            return code
+          }
+        }
+      }
+    },
     build: {
       chunkSizeWarningLimit: 10 * 1024,
       rollupOptions: {
@@ -59,7 +94,7 @@ export default defineConfig(async ({ command, mode }) => {
       }
     },
     optimizeDeps: {
-      include: isBuild ? undefined : ['vexip-ui', '@vexip-ui/icons', '@wangeditor/editor', 'mockjs']
+      include: isBuild ? undefined : ['vexip-ui', '@vexip-ui/icons', '@wangeditor/editor']
     },
     plugins: [
       vue(),
@@ -67,13 +102,7 @@ export default defineConfig(async ({ command, mode }) => {
       autoImport({
         vueTemplate: true,
         dts: resolve(rootDir, 'types/auto-imports.d.ts'),
-        resolvers: [
-          VexipUIResolver({
-            prefix: 'V',
-            iconPrefix: '',
-            importStyle: false
-          })
-        ],
+        resolvers: [vexipResolver],
         imports: [
           'vue',
           {
@@ -89,13 +118,7 @@ export default defineConfig(async ({ command, mode }) => {
       components({
         dirs: ['src/components', 'src/layouts'],
         dts: resolve(rootDir, 'types/components.d.ts'),
-        resolvers: [
-          VexipUIResolver({
-            prefix: 'V',
-            iconPrefix: '',
-            importStyle: false
-          })
-        ]
+        resolvers: [vexipResolver]
       }),
       i18n({
         compositionOnly: false,

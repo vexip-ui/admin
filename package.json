@@ -19,14 +19,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@vexip-ui/hooks": "^2.6.0",
+    "@vexip-ui/hooks": "^2.7.0",
     "@vexip-ui/icons": "^1.2.1",
     "@vexip-ui/utils": "^2.16.1",
     "@wangeditor/editor": "^5.1.23",
     "axios": "^1.7.9",
     "js-cookie": "^3.0.5",
     "pinia": "^2.3.0",
-    "vexip-ui": "^2.3.20",
+    "vexip-ui": "^2.3.22",
     "vue": "^3.5.13",
     "vue-i18n": "^11.0.1",
     "vue-router": "^4.5.0"
@@ -44,7 +44,7 @@
     "@types/prompts": "^2.4.9",
     "@vexip-ui/commitlint-config": "^0.5.0",
     "@vexip-ui/eslint-config": "^0.12.1",
-    "@vexip-ui/plugins": "^1.6.0",
+    "@vexip-ui/plugins": "^1.7.0",
     "@vexip-ui/prettier-config": "^1.0.0",
     "@vexip-ui/stylelint-config": "^1.1.0",
     "@vitejs/plugin-vue": "^5.2.1",
@@ -62,7 +62,7 @@
     "msw": "^2.7.0",
     "prettier": "^3.4.2",
     "prompts": "^2.4.2",
-    "sass": "^1.83.1",
+    "sass-embedded": "^1.83.2",
     "stylelint": "^16.12.0",
     "stylelint-prettier": "^5.0.2",
     "tsx": "^4.19.2",
@@ -71,11 +71,6 @@
     "unplugin-vue-components": "^28.0.0",
     "vite": "^6.0.7",
     "vue-tsc": "^2.2.0"
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "mockjs@1.1.0": "patches/mockjs@1.1.0.patch"
-    }
   },
   "msw": {
     "workerDirectory": [

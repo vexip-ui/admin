@@ -1,6 +1,6 @@
-import { Random } from 'mockjs'
 import { http } from 'msw'
 import { createResult } from './common'
+import { faker } from '@faker-js/faker'
 
 export const handlers = [
   http.post('/resource/file', async ({ request }) => {
@@ -28,7 +28,7 @@ export const handlers = [
     })
 
     if (base64) {
-      const id = Random.guid()
+      const id = faker.string.uuid()
       const units = file.name.split('.')
       const name = units.slice(-1).join('.')
       const ext = units.at(-1)
