@@ -56,8 +56,7 @@ if (isClient) {
 
 const ignoredNames = [LoginRoute.name, NotFoundRoute.name]
 
-const _useNavTabStore = defineStore({
-  id: 'nav-tab',
+const _useNavTabStore = defineStore('nav-tab', {
   state: (): NavTabState => ({
     staticTabs: [],
     asyncTabs: []

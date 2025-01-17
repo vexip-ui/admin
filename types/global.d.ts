@@ -1,13 +1,15 @@
-declare global {
-  interface GlobalConfig {
-    serverUrls: {
-      base: string,
-      resource: string
-    }
-  }
+import { BaseSettings } from './schema'
 
+export interface GlobalConfig {
+  readonly apiServer?: string,
+  readonly apiBasePath?: string,
+  readonly resourceServer?: string,
+  readonly resourceBasePath?: string
+}
+
+declare global {
   interface Window {
-    GLOBAL_CONFIG: GlobalConfig
+    readonly GLOBAL_CONFIG: GlobalConfig
   }
 }
 

@@ -1,6 +1,4 @@
-window.GLOBAL_CONFIG = {
-  serverUrls: {
-    base: '/api',
-    resource: '/resource'
-  }
-}
+/**
+ * @type {import('../types/global').GlobalConfig}
+ */
+window.GLOBAL_CONFIG = {}

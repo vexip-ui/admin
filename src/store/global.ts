@@ -6,8 +6,7 @@ interface GlobalState {
   pageLoading: boolean
 }
 
-const _useGlobalStore = defineStore({
-  id: 'global',
+const _useGlobalStore = defineStore('global', {
   state: (): GlobalState => ({
     pageLoading: false
   }),

@@ -24,8 +24,7 @@ interface AccessState {
 
 let routesCache: RouteRecordRaw[] | undefined
 
-const _useAccessStore = defineStore({
-  id: 'access',
+const _useAccessStore = defineStore('access', {
   state: (): AccessState => ({
     routerInited: false,
     menus: []

@@ -21,47 +21,42 @@ const darkPath = '@/style/variables/dark.scss'
 
 export default defineConfig(async ({ command, mode }) => {
   const isBuild = command === 'build'
-  const env = loadEnv(mode, rootDir)
-  const {
-    VITE_APP_TITLE,
-    VITE_SUPPORT_DARK_MODE,
-    VITE_BASE_PATH,
-    VITE_DROP_CONSOLE
-    // VITE_BASE_SERVER,
-    // VITE_RESOURCE_SERVER
-  } = env
+
+  const env = loadEnv(mode, rootDir, 'PUBLIC_')
+  const { BASE_PATH, DROP_CONSOLE, PUBLIC_APP_TITLE, PUBLIC_SUPPORT_DARK_MODE, PUBLIC_USE_MOCK } =
+    Object.entries(env).reduce((prev, [key, value]) => {
+      try {
+        prev[key] = JSON.parse(value)
+      } catch (e) {
+        prev[key] = value
+      }
+
+      return prev
+    }, {} as ImportMetaEnv)
 
   const vexipResolver = VexipUIResolver({
     prefix: 'V',
     iconPrefix: '',
-    importDarkTheme: VITE_SUPPORT_DARK_MODE === 'true',
+    importDarkTheme: PUBLIC_SUPPORT_DARK_MODE,
     importStyle: 'sass',
     fullStyle: !isBuild
   })
 
   return {
-    base: VITE_BASE_PATH,
+    base: BASE_PATH,
     define: {},
+    envPrefix: 'PUBLIC_',
     resolve: {
       alias: [{ find: /^@\/(.+)/, replacement: resolve(rootDir, 'src/$1') }],
       dedupe: ['vue', 'vexip-ui']
     },
     esbuild: {
-      pure: VITE_DROP_CONSOLE === 'true' ? ['console.log', 'debugger'] : undefined
+      pure: DROP_CONSOLE ? ['console.log'] : undefined,
+      drop: DROP_CONSOLE ? ['debugger'] : undefined
     },
     server: {
       port: 6200,
       host: '0.0.0.0'
-      // proxy: {
-      //   '/api': {
-      //     target: VITE_BASE_SERVER,
-      //     rewrite: path => path.replace(/^\/api/, '')
-      //   },
-      //   '/resource': {
-      //     target: VITE_RESOURCE_SERVER,
-      //     rewrite: path => path.replace(/^\/resource/, '')
-      //   }
-      // }
     },
     css: {
       preprocessorOptions: {
@@ -90,6 +85,11 @@ export default defineConfig(async ({ command, mode }) => {
         output: {
           manualChunks: {
             vue: ['vue']
+          }
+        },
+        external: (source: string) => {
+          if (!PUBLIC_USE_MOCK) {
+            return source.includes(resolve(rootDir, 'mock/'))
           }
         }
       }
@@ -127,7 +127,7 @@ export default defineConfig(async ({ command, mode }) => {
         include: resolve(rootDir, 'src/locale/languages')
       }),
       createHtmlPlugin({
-        title: VITE_APP_TITLE
+        title: PUBLIC_APP_TITLE || 'Vexip UI App'
       }),
       createIconPlugin({
         dir: resolve(rootDir, 'src/icons')

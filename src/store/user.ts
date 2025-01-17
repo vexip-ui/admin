@@ -13,8 +13,7 @@ interface UserState {
   currentUser: User | null
 }
 
-const _useUserStore = defineStore({
-  id: 'user',
+const _useUserStore = defineStore('user', {
   state: (): UserState => ({
     currentUser: null
   }),

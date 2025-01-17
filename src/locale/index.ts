@@ -6,7 +6,7 @@ import type { LocaleOptions } from 'vexip-ui'
 import type { LanguageConfig } from './types'
 import type { LanguageType } from './helper'
 
-const baseLanguage = import.meta.env.VITE_BASE_LANGUAGE
+const baseLanguage = import.meta.env.PUBLIC_BASE_LANGUAGE
 const localLanguage = typeof navigator !== 'undefined' ? navigator.language : undefined
 
 export const defaultLanguage = localLanguage

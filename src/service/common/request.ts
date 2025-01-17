@@ -2,7 +2,7 @@ import { clearAccessToken, getAuthorization } from '@/utils/auth'
 
 import Axios, { AxiosHeaders } from 'axios'
 
-import { BASE_SERVER } from './config'
+import { API_BASE_PATH } from './config'
 
 import type { AxiosRequestConfig, AxiosResponse } from 'axios'
 import type { RequestInstance, Result } from './helper'
@@ -47,6 +47,6 @@ export function createAxiosInstance(options: AxiosRequestConfig) {
 }
 
 export const commonInstance = createAxiosInstance({
-  baseURL: BASE_SERVER,
+  baseURL: API_BASE_PATH,
   withCredentials: true
 })

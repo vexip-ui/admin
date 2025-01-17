@@ -4,7 +4,7 @@ import { isClient } from '@vexip-ui/utils'
 const route = useRoute()
 const { locale, t } = useI18n()
 
-const baseTitle = import.meta.env.VITE_APP_TITLE || ''
+const baseTitle = import.meta.env.PUBLIC_APP_TITLE || ''
 
 watch([() => route.fullPath, () => locale.value], () => {
   if (!isClient) return

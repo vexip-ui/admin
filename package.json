@@ -16,7 +16,8 @@
     "precommit": "lint-staged -c ./.husky/.lintstagedrc -q --allow-empty",
     "prepare": "is-ci || husky install",
     "prettier": "prettier --write \"**/*.{js,cjs,mjs,ts,json,css,scss,vue,html,md}\"",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "schema2ts": "json2ts -i src/config/schema/app-settings.schema.json -o types/schema.d.ts --style.singleQuote --no-style.semi"
   },
   "dependencies": {
     "@vexip-ui/hooks": "^2.7.0",
@@ -55,10 +56,12 @@
     "@vue/runtime-core": "^3.5.13",
     "dotenv": "^16.4.7",
     "eslint": "^8.57.0",
+    "eslint-define-config": "^2.1.0",
     "fast-glob": "^3.3.3",
     "fs-extra": "^11.2.0",
     "husky": "^9.1.7",
     "is-ci": "^4.1.0",
+    "json-schema-to-typescript": "^15.0.4",
     "kolorist": "^1.8.0",
     "lint-staged": "^15.3.0",
     "minimist": "^1.2.8",

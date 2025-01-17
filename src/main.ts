@@ -10,13 +10,13 @@ import { pinia } from './store'
 import { router, useRouterGuards } from './router'
 
 async function init() {
-  if (import.meta.env.VITE_USE_MOCK) {
+  if (import.meta.env.PUBLIC_USE_MOCK) {
     await (
       await import('../mock/worker')
     ).initPromise
   }
 
-  await initPromise
+  await Promise.all([initPromise])
 
   useRouterGuards(router)
   createApp(App)

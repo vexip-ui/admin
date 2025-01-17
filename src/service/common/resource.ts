@@ -1,4 +1,4 @@
-import { RESOURCE_SERVER } from './config'
+import { RESOURCE_BASE_PATH } from './config'
 import { commonInstance } from './request'
 import { parseResult } from './helper'
 
@@ -13,7 +13,7 @@ export interface Resource extends BusinessBase {
   md5: string
 }
 
-const prefix = RESOURCE_SERVER
+const prefix = RESOURCE_BASE_PATH
 
 export const uploadUrl = `${prefix}/file`
 

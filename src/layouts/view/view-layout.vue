@@ -8,7 +8,7 @@ import RightMessage from './header-right/right-message.vue'
 import RightSearch from './header-right/right-search.vue'
 import ThemeSwitch from './header-right/theme-switch.vue'
 
-import type { LayoutHeaderAction } from 'vexip-ui'
+import type { LayoutExposed, LayoutHeaderAction } from 'vexip-ui'
 
 const { t } = useI18n()
 
@@ -18,6 +18,8 @@ const route = useRoute()
 const accessStore = useAccessStore()
 const userStore = useUserStore()
 const navTabStore = useNavTabStore()
+
+const layoutRef = useTemplateRef<LayoutExposed>('layout')
 
 const activeTab = ref('')
 const activeMenu = ref('')
@@ -69,6 +71,9 @@ watch(
   },
   { immediate: true }
 )
+watch(activeMenu, value => {
+  layoutRef.value?.expandMenuByLabel(value)
+})
 
 function handleMenuSelect(label: string) {
   router.push(label)
@@ -178,6 +183,7 @@ async function handleSignOut() {
 
 <template>
   <VLayout
+    ref="layout"
     class="vp-layout"
     logo="https://www.vexipui.com/vexip-ui.svg"
     sign-name="Vexip Admin"
@@ -343,7 +349,9 @@ async function handleSignOut() {
 .fade-move {
   &-leave-active,
   &-enter-active {
-    transition: opacity 250ms, transform 250ms;
+    transition:
+      opacity 250ms,
+      transform 250ms;
   }
 
   &-enter-from {
