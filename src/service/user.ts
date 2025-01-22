@@ -18,7 +18,7 @@ export interface User {
   roles: Role[]
 }
 
-export type UserPerfile = Pick<User, 'id' | 'username' | 'alias' | 'avatar'>
+export type UserProfile = Pick<User, 'id' | 'username' | 'alias' | 'avatar'>
 
 export interface LoginParams {
   username: string,
@@ -33,7 +33,10 @@ export interface LoginResult {
 export const prefix = '/user'
 
 export async function login(params: LoginParams) {
-  return parseResult(await commonInstance.post<Result<LoginResult>>(`${prefix}/login`, params), null)
+  return parseResult(
+    await commonInstance.post<Result<LoginResult>>(`${prefix}/login`, params),
+    null
+  )
 }
 
 export async function logout() {
@@ -45,5 +48,5 @@ export async function getCurrentUser() {
 }
 
 export async function getUserSelection() {
-  return parseResult(await commonInstance.get<Result<UserPerfile[]>>(`${prefix}/selection`), [])
+  return parseResult(await commonInstance.get<Result<UserProfile[]>>(`${prefix}/selection`), [])
 }

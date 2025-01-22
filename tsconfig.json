@@ -5,8 +5,9 @@
     "allowJs": false,
     "strict": true,
     "jsx": "preserve",
+    "jsxImportSource": "vue",
     "importHelpers": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "skipLibCheck": true,
     "noUnusedLocals": true,
     "esModuleInterop": true,
@@ -19,10 +20,6 @@
       "dom"
     ],
     "baseUrl": ".",
-    "outDir": "dist",
-    "types": [
-      "vite/client"
-    ],
     "paths": {
       "@/*": [
         "src/*"

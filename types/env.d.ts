@@ -3,6 +3,7 @@
 interface ImportMetaEnv {
   readonly VITE_APP_TITLE: string,
   readonly VITE_BASE_LANGUAGE: string,
+  readonly VITE_SUPPORT_DARK_MODE: boolean,
   readonly VITE_USE_MOCK: boolean,
   readonly VITE_BASE_PATH: string,
   readonly VITE_DROP_CONSOLE: boolean,

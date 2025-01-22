@@ -25,7 +25,7 @@ export default {
     fail: '{0}失败'
   },
   field: {
-    order: '序号',
+    order: '',
     action: '操作',
     creator: '创建人',
     createdTime: '创建时间',

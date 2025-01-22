@@ -1,7 +1,7 @@
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-import { defineConfig, loadEnv, splitVendorChunkPlugin } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import autoImport from 'unplugin-auto-import/vite'
@@ -14,16 +14,30 @@ import UnoCSS from 'unocss/vite'
 
 const rootDir = dirname(fileURLToPath(import.meta.url))
 
+const vxpStylePresetRE = /vexip-ui\/style(?:\/dark)?\/preset/
+
+const basePath = '@/style/variables/base.scss'
+const darkPath = '@/style/variables/dark.scss'
+
 export default defineConfig(async ({ command, mode }) => {
   const isBuild = command === 'build'
   const env = loadEnv(mode, rootDir)
   const {
     VITE_APP_TITLE,
+    VITE_SUPPORT_DARK_MODE,
     VITE_BASE_PATH,
-    VITE_DROP_CONSOLE,
-    VITE_BASE_SERVER,
-    VITE_RESOURCE_SERVER
+    VITE_DROP_CONSOLE
+    // VITE_BASE_SERVER,
+    // VITE_RESOURCE_SERVER
   } = env
+
+  const vexipResolver = VexipUIResolver({
+    prefix: 'V',
+    iconPrefix: '',
+    importDarkTheme: VITE_SUPPORT_DARK_MODE === 'true',
+    importStyle: 'sass',
+    fullStyle: !isBuild
+  })
 
   return {
     base: VITE_BASE_PATH,
@@ -37,39 +51,60 @@ export default defineConfig(async ({ command, mode }) => {
     },
     server: {
       port: 6200,
-      host: '0.0.0.0',
-      proxy: {
-        '/api': {
-          target: VITE_BASE_SERVER,
-          rewrite: path => path.replace(/^\/api/, '')
-        },
-        '/resource': {
-          target: VITE_RESOURCE_SERVER,
-          rewrite: path => path.replace(/^\/resource/, '')
+      host: '0.0.0.0'
+      // proxy: {
+      //   '/api': {
+      //     target: VITE_BASE_SERVER,
+      //     rewrite: path => path.replace(/^\/api/, '')
+      //   },
+      //   '/resource': {
+      //     target: VITE_RESOURCE_SERVER,
+      //     rewrite: path => path.replace(/^\/resource/, '')
+      //   }
+      // }
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: (code: string, path: string) => {
+            // 篡改组件库基础样式中的变量文件的引用
+            if (vxpStylePresetRE.test(path)) {
+              if (path.includes('dark')) {
+                return code.replace("@use './variables.scss' as *;", `@use '${darkPath}' as *;`)
+              }
+
+              return code.replace(
+                "@use './design/variables.scss' as *;",
+                `@use '${basePath}' as *;`
+              )
+            }
+
+            return code
+          }
         }
       }
     },
     build: {
-      chunkSizeWarningLimit: 10 * 1024
+      chunkSizeWarningLimit: 10 * 1024,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vue: ['vue']
+          }
+        }
+      }
     },
     optimizeDeps: {
-      include: isBuild ? undefined : ['vexip-ui', '@vexip-ui/icons', '@wangeditor/editor', 'mockjs']
+      include: isBuild ? undefined : ['vexip-ui', '@vexip-ui/icons', '@wangeditor/editor']
     },
     plugins: [
       UnoCSS(),
-      splitVendorChunkPlugin(),
       vue(),
       vueJsx(),
       autoImport({
         vueTemplate: true,
         dts: resolve(rootDir, 'types/auto-imports.d.ts'),
-        resolvers: [
-          VexipUIResolver({
-            prefix: 'V',
-            iconPrefix: '',
-            importStyle: false
-          })
-        ],
+        resolvers: [vexipResolver],
         imports: [
           'vue',
           {
@@ -85,13 +120,7 @@ export default defineConfig(async ({ command, mode }) => {
       components({
         dirs: ['src/components', 'src/layouts'],
         dts: resolve(rootDir, 'types/components.d.ts'),
-        resolvers: [
-          VexipUIResolver({
-            prefix: 'V',
-            iconPrefix: '',
-            importStyle: false
-          })
-        ]
+        resolvers: [vexipResolver]
       }),
       i18n({
         compositionOnly: false,
