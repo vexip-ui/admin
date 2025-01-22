@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" baseProfile="full" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 1000 1000">
+  <defs>
+    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="rgba(76, 157, 255, 0.1)"/>
+      <stop offset="100%" stop-color="rgba(98, 198, 255, 0.1)"/>
+    </linearGradient>
+    <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="rgba(54, 164, 255, 0.15)"/>
+      <stop offset="100%" stop-color="rgba(88, 182, 255, 0.15)"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 第一层波浪 -->
+  <path fill="url(#gradient1)">
+    <animate 
+      attributeName="d" 
+      dur="7s"
+      repeatCount="indefinite"
+      values="
+        M 0 430 Q 150 380 300 430 T 600 430 T 900 430 L 1000 430 L 1000 1000 L 0 1000 Z;
+        M 0 430 Q 150 480 300 430 T 600 430 T 900 430 L 1000 430 L 1000 1000 L 0 1000 Z;
+        M 0 430 Q 150 380 300 430 T 600 430 T 900 430 L 1000 430 L 1000 1000 L 0 1000 Z"
+    />
+  </path>
+  
+  <!-- 第二层波浪 -->
+  <path fill="url(#gradient2)">
+    <animate 
+      attributeName="d" 
+      dur="5s"
+      repeatCount="indefinite"
+      values="
+        M 0 530 Q 200 480 400 530 T 800 530 T 1000 530 L 1000 1000 L 0 1000 Z;
+        M 0 530 Q 200 580 400 530 T 800 530 T 1000 530 L 1000 1000 L 0 1000 Z;
+        M 0 530 Q 200 480 400 530 T 800 530 T 1000 530 L 1000 1000 L 0 1000 Z"
+    />
+  </path>
+</svg>

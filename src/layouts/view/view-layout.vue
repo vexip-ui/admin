@@ -3,6 +3,11 @@ import { useAccessStore, useNavTabStore, useUserStore } from '@/store'
 
 import { callIfFunc } from '@vexip-ui/utils'
 
+import FullScreen from './header-right/full-screen.vue'
+import RightMessage from './header-right/right-message.vue'
+import RightSearch from './header-right/right-search.vue'
+import ThemeSwitch from './header-right/theme-switch.vue'
+
 import type { LayoutHeaderAction } from 'vexip-ui'
 
 const { t } = useI18n()
@@ -173,6 +178,7 @@ async function handleSignOut() {
 
 <template>
   <VLayout
+    class="vp-layout"
     logo="https://www.vexipui.com/vexip-ui.svg"
     sign-name="Vexip Admin"
     :menus="accessStore.menus"
@@ -232,11 +238,16 @@ async function handleSignOut() {
       <VBreadcrumb :options="breadcrumbs"></VBreadcrumb>
       <slot name="header-left"></slot>
     </template>
-    <template v-if="$slots['header-main']" #header-main>
+    <template #header-main>
       <slot name="header-main"></slot>
     </template>
-    <template v-if="$slots['header-right']" #header-right>
-      <slot name="header-right"></slot>
+    <template #header-right>
+      <VSpace class="mr-5" align="center" :size="20">
+        <RightSearch></RightSearch>
+        <ThemeSwitch></ThemeSwitch>
+        <FullScreen></FullScreen>
+        <RightMessage></RightMessage>
+      </VSpace>
     </template>
   </VLayout>
 </template>

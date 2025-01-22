@@ -10,6 +10,7 @@ import { VexipUIResolver } from '@vexip-ui/plugins'
 import i18n from '@intlify/unplugin-vue-i18n/vite'
 import { createHtmlPlugin } from './build/plugins/html'
 import { createIconPlugin } from './build/plugins/icon'
+import UnoCSS from 'unocss/vite'
 
 const rootDir = dirname(fileURLToPath(import.meta.url))
 
@@ -55,6 +56,7 @@ export default defineConfig(async ({ command, mode }) => {
       include: isBuild ? undefined : ['vexip-ui', '@vexip-ui/icons', '@wangeditor/editor', 'mockjs']
     },
     plugins: [
+      UnoCSS(),
       splitVendorChunkPlugin(),
       vue(),
       vueJsx(),

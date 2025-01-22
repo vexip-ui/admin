@@ -1,6 +1,6 @@
 export default {
   title: {
-    login: '登陆',
+    login: '登录',
     home: '首页',
     notFound: '页面不存在',
     create: '创建{0}',
@@ -33,15 +33,15 @@ export default {
     modifiedTime: '修改时间'
   },
   login: {
-    signIn: '登陆',
+    signIn: '登录',
     signUp: '注册',
     username: '用户名',
     password: '密码',
     pleaseInput: '请输入{0}',
     forgetPassword: '忘记密码？',
     resetPassword: '重置密码',
-    loginSuccess: '登陆成功',
-    loginFail: '登陆失败，用户名或密码错误',
+    loginSuccess: '登录成功',
+    loginFail: '登录失败，用户名或密码错误',
     welcomeBack: '欢迎回来，{0}'
   },
   userAction: {
