@@ -59,24 +59,23 @@ export default defineConfig(async ({ command, mode }) => {
       host: '0.0.0.0'
     },
     css: {
-      // preprocessorOptions: {
-      //   scss: {
-      //     additionalData: (code: string, path: string) => {
-      //       // 篡改组件库基础样式中的变量文件的引用
-      //       if (vxpStylePresetRE.test(path)) {
-      //         if (path.includes('dark')) {
-      //           console.log(path)
-      //           return code.replace("@use './variables.scss' as *;", `@use '${darkPath}' as *;`)
-      //         }
-      //         return code.replace(
-      //           "@use './design/variables.scss' as *;",
-      //           `@use '${basePath}' as *;`
-      //         )
-      //       }
-      //       return code
-      //     }
-      //   }
-      // }
+      preprocessorOptions: {
+        scss: {
+          additionalData: (code: string, path: string) => {
+            // 篡改组件库基础样式中的变量文件的引用
+            if (vxpStylePresetRE.test(path)) {
+              if (path.includes('dark')) {
+                return code.replace("@use './variables.scss' as *;", `@use '${darkPath}' as *;`)
+              }
+              return code.replace(
+                "@use './design/variables.scss' as *;",
+                `@use '${basePath}' as *;`
+              )
+            }
+            return code
+          }
+        }
+      }
     },
     build: {
       chunkSizeWarningLimit: 10 * 1024,

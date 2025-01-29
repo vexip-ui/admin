@@ -1,3 +1,9 @@
-@forward 'vexip-ui/style/dark/variables.scss' with (
-  $color-map: ()
+@use 'sass:map';
+
+@forward 'vexip-ui/style/dark/variables' with (
+  $color-map: (
+    primary: (
+      // base: #654ea7
+    )
+  )
 );

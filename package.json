@@ -20,7 +20,7 @@
     "schema2ts": "json2ts -i src/config/schema/app-settings.schema.json -o types/schema.d.ts --style.singleQuote --no-style.semi"
   },
   "dependencies": {
-    "@vexip-ui/hooks": "^2.7.0",
+    "@vexip-ui/hooks": "^2.8.0",
     "@vexip-ui/icons": "^1.2.1",
     "@vexip-ui/utils": "^2.16.1",
     "@vueuse/core": "^12.5.0",
@@ -30,7 +30,7 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.3.0",
     "screenfull": "^6.0.2",
-    "vexip-ui": "^2.3.22",
+    "vexip-ui": "^2.3.23",
     "vue": "^3.5.13",
     "vue-i18n": "^11.0.1",
     "vue-router": "^4.5.0"
